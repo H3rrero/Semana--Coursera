@@ -3,23 +3,29 @@
   <head>
     <title>Narrow Down Your Menu Choice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+      <script src="app.js"></script>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
   </head>
-<body>
-   <div class="container">
+<body ng-app='NarrowItDownApp'>
+   <div class="container" ng-controller = "NarrowItDownController as narrow">
     <h1>Narrow Down Your Chinese Menu Choice</h1>
 
-    <div class="form-group">
-      <input type="text" placeholder="search term" class="form-control">
+    <div class="form-group" >
+      <input type="text" placeholder="search term" class="form-control" ng-model="narrow.description">
     </div>
     <div class="form-group narrow-button">
-      <button class="btn btn-primary">Narrow It Down For Me!</button>
-    </div>
+      <button class="btn btn-primary" ng-click="narrow.menuItemsForDescription()">Narrow It Down For Me!</button>
 
-    <!-- found-items should be implemented as a component -->
-    <found-items found-items="...." on-remove="...."></found-items>
+
+
+    <found-items
+    found="narrow.found"
+    on-remove="narrow.removeItem(index)"></found-items>
+
+      <div ng-if="narrow.found.length==0" class="alert alert-danger" >Nothing found</div>
   </div>
-
+</div>
 </body>
 </html>
